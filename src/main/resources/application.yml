@@ -1,3 +1,15 @@
 spring:
   profiles:
     active: local
+
+oauth:
+  redirect-uri: /oauth/callback
+  scopes: read:user, user:email
+  login-url:
+    base: https://github.com/login/oauth
+    authorize: /authorize
+    token: /access_token
+  api-url:
+    base: https://api.github.com
+    user: /user
+    emails: /user/emails

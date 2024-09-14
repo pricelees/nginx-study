@@ -12,12 +12,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum RegistrationErrorType {
 
+	BEFORE_BEST_DATE("희망 날짜는 오늘 이후로 입력해주세요!", HttpStatus.BAD_REQUEST, input -> "bestDate: " + input),
 	BLANK_NICKNAME("닉네임을 입력해 주세요!", HttpStatus.BAD_REQUEST, input -> "nickname: " + input),
 	BLANK_EMAIL("이메일을 입력해 주세요!", HttpStatus.BAD_REQUEST, input -> "email: " + input),
 
 	REGISTRATION_NOT_FOUND("등록 정보를 찾을 수 없습니다.", HttpStatus.NOT_FOUND, input -> "id: " + input),
 	;
-
 
 	private final String message;
 	private final HttpStatusCode httpStatus;

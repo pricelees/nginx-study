@@ -1,6 +1,6 @@
 package com.working.pic.registration.exception;
 
-import com.working.common.exception.PicException;
+import com.working.pic.common.exception.PicException;
 
 public class RegistrationException extends PicException {
 
