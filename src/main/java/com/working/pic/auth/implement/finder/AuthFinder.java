@@ -27,7 +27,7 @@ public class AuthFinder {
 		String baseUrl = loginUrl.getBase() + loginUrl.getAuthorize();
 		String clientId = properties.getClientId();
 		String redirectUri = properties.getRedirectUri();
-		String scopes = String.join(" ", properties.getScopes());
+		String scopes = properties.getScopes();
 
 		return HttpUrlBuilder.fromBaseUrl(baseUrl)
 			.addQueryParam("client_id", clientId)

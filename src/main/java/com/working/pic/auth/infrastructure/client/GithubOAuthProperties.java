@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class GithubOAuthProperties {
 
+	private static final String SCOPE_DELIMITER = " ";
+
 	private final String baseUrl;
 	private final String clientId;
 	private final String clientSecret;
@@ -22,6 +24,10 @@ public class GithubOAuthProperties {
 
 	public String getRedirectUri() {
 		return baseUrl + redirectUri;
+	}
+
+	public String getScopes() {
+		return String.join(SCOPE_DELIMITER, scopes);
 	}
 
 	@RequiredArgsConstructor

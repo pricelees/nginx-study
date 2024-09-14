@@ -9,7 +9,9 @@ import com.working.pic.auth.presentation.response.GithubLoginSucceedResponse;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class AuthController {
@@ -31,8 +33,13 @@ public class AuthController {
 	@GetMapping("/oauth/callback")
 	public String oauthLogin(@RequestParam String code, HttpSession session) {
 		GithubLoginSucceedResponse response = authService.login(code);
-		session.setAttribute("userName", response.userName());
-		session.setAttribute("email", response.email());
+		String userName = response.userName();
+		String email = response.email();
+
+		session.setAttribute("userName", userName);
+		session.setAttribute("email", email);
+
+		log.info("github login success. username: {}, email: {}", userName, email);
 
 		return "redirect:/register";
 	}
