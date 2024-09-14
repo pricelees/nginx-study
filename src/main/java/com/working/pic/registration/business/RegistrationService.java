@@ -14,9 +14,9 @@ public class RegistrationService {
 
 	private final RegistrationWriter registrationWriter;
 
-	public void register(RegisterRequest registerRequest) {
-		Registration info = registerRequest.toRegistrationInfo();
+	public void register(RegisterRequest registerRequest, String userName, String email) {
+		Registration registration = registerRequest.toDomain(userName, email);
 
-		registrationWriter.save(info);
+		registrationWriter.save(registration);
 	}
 }

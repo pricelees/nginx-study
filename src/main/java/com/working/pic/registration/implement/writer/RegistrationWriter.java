@@ -16,6 +16,8 @@ public class RegistrationWriter {
 
 	public void save(Registration registration) {
 		RegistrationEntity registrationEntity = RegistrationEntity.builder()
+			.nickname(registration.getNickname())
+			.githubUsername(registration.getGithubUsername())
 			.email(registration.getEmail())
 			.nickname(registration.getNickname())
 			.description(registration.getDescription())

@@ -1,5 +1,6 @@
 package com.working.pic.registration.infrastructure.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -8,29 +9,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(
-	name = "registration",
-	uniqueConstraints = {
-		@UniqueConstraint(
-			columnNames = {"nickname"}
-		),
-		@UniqueConstraint(
-			columnNames = {"email"}
-		)
-	}
-)
 @Entity
 @Getter
-@Builder
+@Table(name = "registration")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class RegistrationEntity {
 
 	@Id
@@ -41,9 +28,26 @@ public class RegistrationEntity {
 	private String nickname;
 
 	@Column(nullable = false)
+	private String githubUsername;
+
+	@Column(nullable = false)
 	private String email;
 
 	private String description;
 
+	private LocalDate bestDate;
+
+	@Column(nullable = false)
 	private LocalDateTime postedAt;
+
+	@Builder
+	public RegistrationEntity(String nickname, String githubUsername, String email, String description,
+		LocalDate bestDate) {
+		this.nickname = nickname;
+		this.githubUsername = githubUsername;
+		this.email = email;
+		this.description = description;
+		this.bestDate = bestDate;
+		this.postedAt = LocalDateTime.now();
+	}
 }

@@ -1,6 +1,7 @@
 package com.working.pic.registration.domain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.working.pic.registration.exception.RegistrationErrorType;
 import com.working.pic.registration.exception.RegistrationException;
@@ -12,25 +13,29 @@ import lombok.Getter;
 public class Registration {
 
 	private final String nickname;
+	private final String githubUsername;
 	private final String email;
 	private final String description;
-	private final LocalDate postedAt;
+	private final LocalDate bestDate;
+	private final LocalDateTime postedAt;
 
 	@Builder
-	public Registration(String nickname, String email, String description) {
-		validateIsNotBlankOrNull(nickname, email);
+	public Registration(String nickname, String githubUsername, String email, String description, LocalDate bestDate) {
+		validateIsNotBefore(bestDate);
 		this.nickname = nickname;
+		this.githubUsername = githubUsername;
 		this.email = email;
 		this.description = description;
-		this.postedAt = LocalDate.now();
+		this.bestDate = bestDate;
+		this.postedAt = LocalDateTime.now();
 	}
 
-	private void validateIsNotBlankOrNull(String nickname, String email) {
-		if (nickname == null || nickname.isBlank()) {
-			throw new RegistrationException(RegistrationErrorType.BLANK_NICKNAME, nickname);
+	private void validateIsNotBefore(LocalDate bestDate) {
+		if (bestDate == null) {
+			return;
 		}
-		if (email == null || email.isBlank()) {
-			throw new RegistrationException(RegistrationErrorType.BLANK_EMAIL, email);
+		if (bestDate.isBefore(LocalDate.now())) {
+			throw new RegistrationException(RegistrationErrorType.BEFORE_BEST_DATE, bestDate);
 		}
 	}
 }
