@@ -10,6 +10,7 @@ import com.working.pic.registration.business.RegistrationService;
 import com.working.pic.registration.presentation.request.RegisterRequest;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -20,7 +21,7 @@ public class RegistrationController {
 	private final RegistrationService registrationService;
 
 	@PostMapping
-	public ResponseEntity<Void> register(@RequestBody RegisterRequest request, HttpSession session) {
+	public ResponseEntity<Void> register(@Valid @RequestBody RegisterRequest request, HttpSession session) {
 		String userName = (String)session.getAttribute("userName");
 		String email = (String)session.getAttribute("email");
 

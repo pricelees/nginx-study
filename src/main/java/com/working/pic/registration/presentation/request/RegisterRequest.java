@@ -4,10 +4,10 @@ import java.time.LocalDate;
 
 import com.working.pic.registration.domain.Registration;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 
 public record RegisterRequest(
-	@NotEmpty
+	@NotBlank
 	String nickname,
 	LocalDate bestDate,
 	String description
