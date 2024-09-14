@@ -21,8 +21,8 @@ public class RegistrationController {
 
 	@PostMapping
 	public ResponseEntity<Void> register(@RequestBody RegisterRequest request, HttpSession session) {
-		String userName = (String) session.getAttribute("userName");
-		String email = (String) session.getAttribute("email");
+		String userName = (String)session.getAttribute("userName");
+		String email = (String)session.getAttribute("email");
 
 		registrationService.register(request, userName, email);
 
