@@ -22,3 +22,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+oauth:
+  base-url: http://localhost:8081
+  client-id: Ov23liZStKKHIXGdwKA4
+  client-secret: e1372032e2e78c792864958188b24c4c40a193b5
