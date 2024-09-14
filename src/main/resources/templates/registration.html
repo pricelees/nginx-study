@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>우와와 잠실 사진관</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/register.js" defer></script>
+</head>
+<body>
+<div class="registration-form">
+    <h2>신청하기</h2>
+    <h3>이메일</h3>
+    <p>사진은 github 계정과 연동된 이메일로 보내드려요.</p>
+    <p>다른 이메일 계정을 사용하고 계시다면 '추가로 작성하고 싶은 내용'에 작성해주세요.</p>
+    <br>
+    <h3>날짜</h3>
+    <p>날짜는 개별 연락 후 조정하고 있으나,</p>
+    <p>꼭 하고 싶은 날이 있다면 일단 지정해주세요.</p>
+    <p>감사합니다😄</p>
+    <br>
+    <form id="photoRegistrationForm" th:action="@{/register}" method="post">
+        <div class="form-group">
+            <label for="nickname">닉네임 <span class="required">*</span></label>
+            <input type="text" id="nickname" name="nickname" required>
+        </div>
+        <div class="form-group">
+            <label for="bestDate">희망하는 날짜</label>
+            <input type="date" id="bestDate" name="bestDate">
+        </div>
+        <div class="form-group">
+            <label for="description">추가로 작성하고 싶은 내용</label>
+            <textarea id="description" name="description"></textarea>
+        </div>
+        <div class="button-container">
+            <button type="submit">신청하기</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
