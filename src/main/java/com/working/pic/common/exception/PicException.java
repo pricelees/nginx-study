@@ -1,4 +1,4 @@
-package com.working.common.exception;
+package com.working.pic.common.exception;
 
 import java.util.Optional;
 
