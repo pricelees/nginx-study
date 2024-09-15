@@ -1,4 +1,4 @@
-## all same with entrypoint_template
 ## add forward header strategy to the entrypoint_template
+## other variables are exactly the same as the entrypoint_template
 
 spring.forwarded.header.strategy=native

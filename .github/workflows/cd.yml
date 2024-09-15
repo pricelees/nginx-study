@@ -10,22 +10,8 @@ jobs:
     runs-on: prod
 
     steps:
-      - name: create docker-compose
+      - name: run deploy
         run: |
           cd ~/deploy-pic 
-          sudo chmod +x create-compose-with-setup.sh
-          ./create-compose-with-setup.sh
-
-      - name: docker-compose run
-        run: |
-          docker compose -f ~/deploy-pic/docker-compose-springboot.yml down
-          docker compose -f ~/deploy-pic/docker-compose-springboot.yml pull
-          docker compose -f ~/deploy-pic/docker-compose-springboot.yml up -d
-
-      - name: prune docker images
-        run: |
-          docker image prune -a -f
-          
-      
-
-          
+          sudo chmod +x deploy.sh
+          ./deploy.sh springboot
