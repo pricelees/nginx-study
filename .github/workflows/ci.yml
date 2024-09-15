@@ -29,7 +29,8 @@ jobs:
       - name: Extract JAR file name
         id: extract_jar
         run: |
-          echo "JAR_FILE=$(ls build/libs/*.jar)" >> $GITHUB_ENV
+          JAR_FILE=$(ls $(pwd)/build/libs/*.jar)
+          echo "JAR_FILE=$JAR_FILE" >> $GITHUB_ENV
 
       - name: Build Docker image
         run: |
