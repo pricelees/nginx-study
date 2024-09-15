@@ -6,8 +6,8 @@ source docker-var.sh
 export SPRING_V1_ENTRYPOINT=$(./create-entrypoint.sh template/entrypoint_template)
 export SPRING_V2_ENTRYPOINT=$(./create-entrypoint.sh template/entrypoint_v2_template)
 
-envsubst < springboot-compose-format > docker-compose-springboot.yml
-envsubst < mysql-compose-format > docker-compose-mysql.yml
+envsubst < template/springboot-compose.template > docker-compose-springboot.yml
+envsubst < template/mysql-compose.template > docker-compose-mysql.yml
 
 ## create docker network if not exists
 if [ -z "$(docker network ls --filter name=^${DOCKER_NETWORK} --format '{{ .Name }}')" ]; then

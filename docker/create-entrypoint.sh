@@ -14,11 +14,14 @@ IFS=$'\n'
 PREFIX="[\"java\", \"-jar\""
 SUFFIX=", \"/app.jar\"]"
 
-for line in $(cat $ENV_FILE);
-do
-  key=${line%%=*}
-  value=${line#*=}
-  PREFIX="$PREFIX, \"-D$key=$value\""
+for line in $(cat $ENV_FILE); do
+  # ignore comment and empty line
+  # only process key=value line
+  if [[ ! "$line" =~ ^# ]] [[ -n "$line" ]]; then
+    key=${line%%=*}
+    value=${line#*=}
+    PREFIX="$PREFIX, \"-D$key=$value\""
+  fi
 done
 
 RESULT="$PREFIX$SUFFIX"

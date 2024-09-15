@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   mysql:
     image: mysql:${MYSQL_VERSION}
@@ -12,6 +10,12 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: Asia/Seoul
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    networks:
+      - ${DOCKER_NETWORK}
     volumes:
       - ${MYSQL_DOCKER_VOLUME}:/var/lib/mysql
     healthcheck:
@@ -23,6 +27,6 @@ networks:
   ${DOCKER_NETWORK}:
     external: true
 
-volume:
+volumes:
   ${MYSQL_DOCKER_VOLUME}:
     external: true
