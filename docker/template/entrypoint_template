@@ -1,0 +1,2 @@
+## key=value pairs of environment variables to be used in the springboot entrypoint template
+## e.g. spring.profiles.active=prod

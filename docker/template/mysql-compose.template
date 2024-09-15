@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:${MYSQL_VERSION}
+    container_name: ${MYSQL_CONTAINER}
+    restart: always
+    ports:
+      - "${MYSQL_PORT}:${MYSQL_PORT}"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ${MYSQL_DOCKER_VOLUME}:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u${MYSQL_USER}", "-p${MYSQL_PASSWORD}"]
+      timeout: 20s
+      retries: 3
+
+networks:
+  ${DOCKER_NETWORK}:
+    external: true
+
+volume:
+  ${MYSQL_DOCKER_VOLUME}:
+    external: true
