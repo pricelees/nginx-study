@@ -26,11 +26,15 @@ public class PageController {
 
 	private String getHeaderPage(HttpServletRequest request, Model model) {
 		String protocol = request.getProtocol();
+		int remotePort = request.getRemotePort();
+		int serverPort = request.getServerPort();
 		String remoteHost = request.getRemoteHost();
 		StringBuffer requestURL = request.getRequestURL();
 		String remoteAddr = request.getRemoteAddr();
-		model.addAttribute("remoteHost", remoteHost);
 		model.addAttribute("protocol", protocol);
+		model.addAttribute("remotePort", remotePort);
+		model.addAttribute("serverPort", serverPort);
+		model.addAttribute("remoteHost", remoteHost);
 		model.addAttribute("requestUrl", requestURL.toString());
 		model.addAttribute("remoteAddr", remoteAddr);
 
