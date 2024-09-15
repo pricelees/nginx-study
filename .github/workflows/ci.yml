@@ -28,10 +28,9 @@ jobs:
 
       - name: Build Docker image
         run: |
-          cd docker
-          docker buildx build ./ \
+          docker buildx build ./docker \
           --platform=linux/amd64 \
-          --build-arg JAR_FILE=$(ls ../build/libs/*.jar) \
+          --build-arg JAR_FILE=$(ls build/libs/*.jar) \
           -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_SPRING_CONTAINER }}:latest
 
       - name: Log in to DockerHub
