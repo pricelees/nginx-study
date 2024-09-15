@@ -1,0 +1,49 @@
+name: ci
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build_and_push_docker_image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - name: setup JDK 17 corretto
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: gradle build
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean build
+
+      - name: Extract JAR file name
+        id: extract_jar
+        run: |
+          echo "JAR_FILE=$(ls build/libs/*.jar)" >> $GITHUB_ENV
+
+      - name: Build Docker image
+        run: |
+          cd docker
+          docker buildx build ./ \
+          --platform=linux/amd64 \
+          --build-arg JAR_FILE=$JAR_FILE \
+          -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_SPRING_CONTAINER }}:latest
+
+      - name: Log in to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Docker image to DockerHub
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_SPRING_CONTAINER }}:latest
