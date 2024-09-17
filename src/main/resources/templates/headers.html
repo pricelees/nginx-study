@@ -13,6 +13,10 @@
     <p><strong>Scheme:</strong> <span th:text="${scheme}"></span></p>
     <p><strong>Request URL:</strong> <span th:text="${requestUrl}"></span></p>
     <p><strong>Remote Address:</strong> <span th:text="${remoteAddr}"></span></p>
+    <p th:if="${xForwardedFor != null}">
+        <strong>X-Forwarded-For:</strong>
+        <span th:text="${xForwardedFor}"></span>
+    </p>
 </div>
 </body>
 </html>
