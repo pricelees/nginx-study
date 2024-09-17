@@ -25,15 +25,18 @@ public class PageController {
 	}
 
 	private String getHeaderPage(HttpServletRequest request, Model model) {
-		String scheme = request.getScheme();
-		String remoteHost = request.getRemoteHost();
-		String requestURL = request.getRequestURL().toString();
-		String remoteAddr = request.getRemoteAddr();
-		model.addAttribute("scheme", scheme);
-		model.addAttribute("remoteHost", remoteHost);
-		model.addAttribute("requestUrl", requestURL);
-		model.addAttribute("remoteAddr", remoteAddr);
+		model.addAttribute("scheme", request.getScheme());
+		model.addAttribute("requestUrl", request.getRequestURL().toString());
+		model.addAttribute("remoteAddr", parseIpAddress(request.getRemoteAddr()));
 
 		return "headers";
+	}
+
+	private String parseIpAddress(String ipAddress) {
+		String[] parts = ipAddress.split("\\.");
+		if (parts.length == 1) {
+			parts = ipAddress.split(":");
+		}
+		return parts[0] + "." + parts[1];
 	}
 }
