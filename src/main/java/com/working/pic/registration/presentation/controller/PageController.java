@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class PageController {
 
 	@GetMapping("/register")
@@ -38,6 +40,7 @@ public class PageController {
 
 	private void addXForwardedForHeaderIfExist(HttpServletRequest request, Model model) {
 		String xForwardedForHeader = request.getHeader("X-Forwarded-For");
+		log.info("request: {}, X-Forwarded-For: {}", request.getRequestURI(), xForwardedForHeader);
 		if (xForwardedForHeader == null) {
 			return;
 		}

@@ -22,7 +22,7 @@ h1, h2, h3 {
 }
 
 
-.login-container, .registration-form {
+.login-container, .registration-form, .headers-container {
     background-color: white;
     padding: 30px;
     border-radius: 8px;
