@@ -7,8 +7,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    transform: scale(1.2);
-    transform-origin: center;
+    transform-origin: center center;
 }
 
 h1, h2, h3 {
@@ -16,20 +15,20 @@ h1, h2, h3 {
     margin-bottom: 20px;
 }
 
-.login-container, .registration-form {
+@media (max-width: 1000px) {
+    .registration-form, .login-container {
+        transform: scale(2);
+    }
+}
+
+
+.login-container, .registration-form, .headers-container {
     background-color: white;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
-}
-
-@media (max-width: 600px) {
-    .registration-form, .login-container {
-        width: 100%;
-        padding: 20px;
-    }
 }
 
 .login-container {
