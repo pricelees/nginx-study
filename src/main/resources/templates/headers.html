@@ -9,11 +9,14 @@
 <body>
 <div class="headers-container">
     <h2>클라이언트 IP 확인</h2>
-    <h3><strong>getRemoteAddr(): </strong> <span th:text="${remoteAddr}"></span></h3>
-    <h3>
-        <strong>getHeader("X-Forwarded-For"): </strong>
-        <span th:text="${xForwardedFor != null ? xForwardedFor : 'null'}"></span>
-    </h3>
+    <div>
+        <h3><strong>getRemoteAddr(): </strong></h3>
+        <p th:text="${remoteAddr}"></p>
+    </div>
+    <div>
+        <h3><strong>getHeader("X-Forwarded-For"): </strong></h3>
+        <p th:text="${xForwardedFor != null ? xForwardedFor : 'null'}"></p>
+    </div>
 </div>
 </body>
 </html>
