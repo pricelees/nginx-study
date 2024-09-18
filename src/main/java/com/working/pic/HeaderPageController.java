@@ -24,9 +24,16 @@ public class HeaderPageController {
 		return getHeaderPage(request, model);
 	}
 
+	/**
+	 *
+	 * @param request: HttpServletRequest
+	 * @param model: Model
+	 * @return request.getRemoteAddr()와 request.getHeader("X-Forwarded-For")의 값을
+	 * 	   		model 에 추가하고 headers.html 을 반환
+	 */
 	private String getHeaderPage(HttpServletRequest request, Model model) {
 		model.addAttribute("remoteAddr", parseIpAddress(request.getRemoteAddr()));
-		addXForwardedForHeaderIfExist(request, model);
+		addXForwardedForHeaderIfExist(request, model); // request.getHeader("X-Forwarded-For")
 
 		return "headers";
 	}
