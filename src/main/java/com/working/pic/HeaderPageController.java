@@ -25,8 +25,6 @@ public class HeaderPageController {
 	}
 
 	private String getHeaderPage(HttpServletRequest request, Model model) {
-		model.addAttribute("scheme", request.getScheme());
-		model.addAttribute("requestUrl", request.getRequestURL().toString());
 		model.addAttribute("remoteAddr", parseIpAddress(request.getRemoteAddr()));
 		addXForwardedForHeaderIfExist(request, model);
 
