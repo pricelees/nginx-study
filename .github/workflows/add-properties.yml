@@ -6,7 +6,7 @@ on:
       - add-properties
 
 jobs:
-  deploy:
+  properties-add:
     runs-on: prod
 
     steps:
@@ -18,12 +18,12 @@ jobs:
             cd ${{ secrets.PROPERTY_DIR }} && ./add-new-properties.sh
           fi
 
-      - name: Reload .bashrc to apply new properties
-        run: |
-          source ${{ secrets.PROPERTY_DIR }}/env.sh && source ~/.bashrc
+  test:
+    runs-on: prod
 
-      - name: Reload properties and test
-        run: |
-          cd ${{ secrets.PROPERTY_DIR }}
-          envsubst < test-properties.yml > test-result.yml
-          cat test-result.yml
+    steps:
+        - name: Test properties
+          run: |
+              cd ${{ secrets.PROPERTY_DIR }}
+              envsubst < test-properties.yml > test-result.yml
+              cat test-result.yml
