@@ -1,0 +1,29 @@
+name: add-properties
+
+on:
+  push:
+    branches:
+      - add-properties
+
+jobs:
+  deploy:
+    runs-on: prod
+
+    steps:
+      - name: updating properties if exists
+        run: |
+          if [ -n "${{ secrets.NEW_PROPERTIES }}" ]; then
+            property_dir=/home/ubuntu/property-test
+            echo "${{ secrets.NEW_PROPERTIES }}" > ${{ secrets.PROPERTY_DIR }}/new_properties
+            cd ${{ secrets.PROPERTY_DIR }} && ./add-new-properties.sh
+          fi
+
+      - name: Reload .bashrc to apply new properties
+        run: |
+          source ~/.bashrc
+
+      - name: test
+        run: |
+          cd ${{ secrets.PROPERTY_DIR }}
+          envsubst < test-properties.yml > test-result.yml
+          cat test-result.yml
