@@ -18,12 +18,9 @@ jobs:
             cd ${{ secrets.PROPERTY_DIR }} && ./add-new-properties.sh
           fi
 
-      - name: Reload .bashrc to apply new properties
-        run: |
-          source ~/.bashrc
-
-      - name: test
+      - name: Reload properties and test
         run: |
           cd ${{ secrets.PROPERTY_DIR }}
+          source env.sh && source ~/.bashrc
           envsubst < test-properties.yml > test-result.yml
           cat test-result.yml
