@@ -42,6 +42,10 @@ public class HeaderPageController {
 	 */
 	private String getHeaderPage(HttpServletRequest request, Model model) {
 		model.addAttribute("remoteAddr", parseIpAddress(request.getRemoteAddr()));
+		model.addAttribute("remoteHost", request.getRemoteHost());
+		model.addAttribute("remotePort", request.getRemotePort());
+		model.addAttribute("requestUrl", request.getRequestURL().toString());
+
 		addXForwardedForHeaderIfExist(request, model);
 
 		return "headers";
