@@ -13,3 +13,6 @@ oauth:
     base: https://api.github.com
     user: /user
     emails: /user/emails
+
+server:
+  shutdown: graceful
