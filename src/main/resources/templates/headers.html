@@ -14,6 +14,9 @@
         <strong>getHeader("X-Forwarded-For"): </strong>
         <span th:text="${xForwardedFor != null ? xForwardedFor : 'null'}"></span>
     </p>
+    <p><strong>getRemoteHost(): </strong> <span th:text="${remoteHost}"></span></p>
+    <p><strong>getRemotePort(): </strong> <span th:text="${remotePort}"></span></p>
+    <p><strong>getRequestUrl(): </strong> <span th:text="${requestUrl}"></span></p>
 </div>
 </body>
 </html>
