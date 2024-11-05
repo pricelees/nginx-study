@@ -1,6 +1,8 @@
 package com.working.pic;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
@@ -17,7 +19,7 @@ public class HeaderPageController {
 	private static final String DOCKER_NETWORK_SUBNET = "172.18";
 	private static final String LOCALHOST_IP_PREFIX = "127.0";
 	private static final String X_FORWARDED_FOR_HEADER_DELIMITER = ", ";
-	private	static final String IPv4_SEPARATOR_REGEX = "\\.";
+	private static final String IPv4_SEPARATOR_REGEX = "\\.";
 	private static final String IPv4_SEPARATOR = ".";
 	private static final String IPv6_SEPARATOR = ":";
 
@@ -28,7 +30,28 @@ public class HeaderPageController {
 
 	@GetMapping("/v2/headers")
 	public String v2Headers(HttpServletRequest request, Model model) {
+
 		return getHeaderPage(request, model);
+	}
+
+	@GetMapping("/v1/all-headers")
+	public String allV1Headers(HttpServletRequest request, Model model) {
+		return getAllHeadersPage(request, model);
+	}
+
+	@GetMapping("/v2/all-headers")
+	public String allV2Headers(HttpServletRequest request, Model model) {
+		return getAllHeadersPage(request, model);
+	}
+
+	private String getAllHeadersPage(HttpServletRequest request, Model model) {
+		Map<String, String> headers = new HashMap<>();
+		request.getHeaderNames()
+			.asIterator()
+			.forEachRemaining(headerName -> headers.put(headerName, request.getHeader(headerName)));
+		model.addAttribute("headers", headers);
+
+		return "all-headers";
 	}
 
 	/**
