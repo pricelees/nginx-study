@@ -1,4 +1,4 @@
-package com.working.pic.common.healthcheck;
+package com.working.pic.common.controller;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.springframework.http.HttpStatus;
