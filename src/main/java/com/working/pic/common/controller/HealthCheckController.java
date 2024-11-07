@@ -13,11 +13,11 @@ public class HealthCheckController {
     private final AtomicBoolean isTerminated = new AtomicBoolean(false);
 
     @GetMapping("/healthcheck")
-    public ResponseEntity<Void> healthCheck() {
+    public ResponseEntity<String> healthCheck() {
         if (isTerminated.get()) {
             return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build();
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("healthy");
     }
 
     @PostMapping("/terminate")
