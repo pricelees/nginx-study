@@ -15,7 +15,7 @@ public class HealthCheckController {
     @GetMapping("/healthcheck")
     public ResponseEntity<String> healthCheck() {
         if (isTerminated.get()) {
-            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build();
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("terminated");
         }
         return ResponseEntity.ok("healthy");
     }
