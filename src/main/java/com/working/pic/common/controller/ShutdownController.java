@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ShutdownController {
 
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy:HH:mm:ss");
 	private static final String DEFAULT_SHUTDOWN_DELAY = "30";
 
 	@GetMapping("/shutdown-test")
@@ -27,8 +28,7 @@ public class ShutdownController {
 		@RequestParam(value = "delay", defaultValue = DEFAULT_SHUTDOWN_DELAY) int delay,
 		Model model
 	) {
-		String requestTime = LocalDateTime.now()
-			.format(DateTimeFormatter.ofPattern("dd/MM/yyyy:HH:mm:ss"));
+		LocalDateTime requestTime = LocalDateTime.now();
 		log.info("Shutdown request received. Delay: {} seconds", delay);
 		try {
 			Thread.sleep(delay * 1000L);
@@ -36,8 +36,11 @@ public class ShutdownController {
 			Thread.currentThread().interrupt();
 		}
 
-		model.addAttribute("delay", delay);
-		model.addAttribute("requestTime", requestTime);
+		LocalDateTime completeTime = LocalDateTime.now();
+		model.addAttribute("requestTime", requestTime.format(DATE_TIME_FORMATTER));
+		model.addAttribute("completeTime", completeTime.format(DATE_TIME_FORMATTER));
+		log.info("Shutdown request completed. requestTime: {}, completeTime: {}"
+			, requestTime.format(DATE_TIME_FORMATTER), completeTime.format(DATE_TIME_FORMATTER));
 		return "success-shutdown";
 	}
 }
