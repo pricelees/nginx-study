@@ -1,5 +1,8 @@
 package com.working.pic.common.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +27,8 @@ public class ShutdownController {
 		@RequestParam(value = "delay", defaultValue = DEFAULT_SHUTDOWN_DELAY) int delay,
 		Model model
 	) {
+		String requestTime = LocalDateTime.now()
+			.format(DateTimeFormatter.ofPattern("dd/MM/yyyy:HH:mm:ss"));
 		log.info("Shutdown request received. Delay: {} seconds", delay);
 		try {
 			Thread.sleep(delay * 1000L);
@@ -32,6 +37,7 @@ public class ShutdownController {
 		}
 
 		model.addAttribute("delay", delay);
+		model.addAttribute("requestTime", requestTime);
 		return "success-shutdown";
 	}
 }
