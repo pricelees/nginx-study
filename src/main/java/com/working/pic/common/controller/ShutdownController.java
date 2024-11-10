@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,18 +31,29 @@ public class ShutdownController {
 		Model model
 	) {
 		LocalDateTime requestTime = LocalDateTime.now();
-		log.info("Shutdown request received. Delay: {} seconds", delay);
+		LocalDateTime completeTime = run(delay);
+
+		model.addAttribute("requestTime", requestTime.format(DATE_TIME_FORMATTER));
+		model.addAttribute("completeTime", completeTime.format(DATE_TIME_FORMATTER));
+		return "success-shutdown";
+	}
+
+	@PostMapping("/shutdown-test-v2")
+	@ResponseBody
+	public ShutdownResponse shutdownV2(@RequestBody ShutdownRequest shutdownRequest) {
+		LocalDateTime requestTime = shutdownRequest.requestTime();
+		LocalDateTime completeTime = run(shutdownRequest.delay());
+
+		return new ShutdownResponse(requestTime.format(DATE_TIME_FORMATTER), completeTime.format(DATE_TIME_FORMATTER));
+	}
+
+	private LocalDateTime run(int delay) {
 		try {
 			Thread.sleep(delay * 1000L);
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
 
-		LocalDateTime completeTime = LocalDateTime.now();
-		model.addAttribute("requestTime", requestTime.format(DATE_TIME_FORMATTER));
-		model.addAttribute("completeTime", completeTime.format(DATE_TIME_FORMATTER));
-		log.info("Shutdown request completed. requestTime: {}, completeTime: {}"
-			, requestTime.format(DATE_TIME_FORMATTER), completeTime.format(DATE_TIME_FORMATTER));
-		return "success-shutdown";
+		return LocalDateTime.now();
 	}
 }
