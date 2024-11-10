@@ -1,4 +1,4 @@
-package com.working.pic.common.healthcheck;
+package com.working.pic.common.controller;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.springframework.http.HttpStatus;
@@ -13,11 +13,11 @@ public class HealthCheckController {
     private final AtomicBoolean isTerminated = new AtomicBoolean(false);
 
     @GetMapping("/healthcheck")
-    public ResponseEntity<Void> healthCheck() {
+    public ResponseEntity<String> healthCheck() {
         if (isTerminated.get()) {
-            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build();
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("terminated");
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("healthy");
     }
 
     @PostMapping("/terminate")
