@@ -25,4 +25,10 @@ public class HealthCheckController {
         isTerminated.set(true);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/activate")
+    public ResponseEntity<Void> activate() {
+        isTerminated.set(false);
+        return ResponseEntity.ok().build();
+    }
 }
